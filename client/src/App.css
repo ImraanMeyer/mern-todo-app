@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  font-family: 'Poppins';
+}
+
+.container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.inputField {
+  padding: 5px;
+  margin-right: 1em;
+  border-radius: 0.7em;
+  border: 1px #ccc dotted;
+}
+
+.inputField:focus,
+.btn:focus,
+.delBtn:focus {
+  outline: 0;
+}
+
+.btn {
+  border: none;
+  background: #ccc;
+  border-radius: 0.7em;
+  height: 40px;
+}
+.btn:hover {
+  background: #7cc566;
+  cursor: pointer;
+  color: white;
+}
+
+.todoItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

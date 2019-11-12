@@ -1,0 +1,46 @@
+GET http://localhost:5050/todos/
+
+###
+
+POST http://localhost:5050/todos/new
+Content-Type: application/json
+
+{
+    "todo": "new twp!"
+}
+
+###
+
+GET http://localhost:5050/users/
+
+###
+
+// Get User by single ID
+GET http://localhost:5050/users/5dc41bf5e040da79787a3b23
+
+###
+
+
+POST http://localhost:5050/users/register
+Content-Type: application/json
+
+{
+    "name": "John",
+    "email": "jown.wick@gmail.com",
+    "password": "john123" 
+}
+
+
+###
+
+POST http://localhost:5050/users/login
+Content-Type: application/json
+
+{
+    "email": "jown.wick@gmail.com",
+    "password": "john123" 
+}
+
+###
+
+GET  http://localhost:5050/users/me
