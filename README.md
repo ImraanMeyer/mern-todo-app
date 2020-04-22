@@ -1,2 +1,3 @@
-# mern-auth-server
-[Server] MERN stack login/register system with account activation.
+# mern-todo-app 📝
+
+Authenticated todo-app with the MERN stack!
