@@ -49,6 +49,12 @@ app.use('/api', createProxyMiddleware({
     changeOrigin: true
 }))
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
     app.use(express.static(path.join(__dirname, 'client', 'build')));
