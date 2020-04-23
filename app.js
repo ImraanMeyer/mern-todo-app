@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const compression = require('compression');
 const path = require('path')
 
@@ -42,6 +43,11 @@ app.use('/api', userRoutes);
 app.use('/api', todosRoutes);
 
 app.use(compression());
+
+app.use('/api', createProxyMiddleware({
+    target: 'http://localhost:8000',
+    changeOrigin: true
+}))
 
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
