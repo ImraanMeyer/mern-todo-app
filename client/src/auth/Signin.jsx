@@ -38,7 +38,7 @@ const Signin = ({ history }) => {
 		setValues({ ...values, buttonText: 'Submitting' });
 
 		axios
-			.post('signin', { email, password })
+			.post('/api/signin', { email, password })
 			.then((response) => {
 				console.log('SIGNIN SUCCESS', response);
 
@@ -90,7 +90,7 @@ const Signin = ({ history }) => {
 				{signinForm()}
 
 				<br />
-				<Link to="auth/password/forgot" className="btn btn-sm btn-outline-danger">
+				<Link to="/auth/password/forgot" className="btn btn-sm btn-outline-danger">
 					Forgot Password
 				</Link>
 			</div>

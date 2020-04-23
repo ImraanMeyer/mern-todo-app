@@ -34,7 +34,7 @@ const Activate = ({match}) => {
 		e.preventDefault();
 
 		axios
-			.post(`/account-activation`, { token })
+			.post(`/api/account-activation`, { token })
 			.then((response) => {
 				// console.log('ACCOUNT ACTIVATION', response);
 

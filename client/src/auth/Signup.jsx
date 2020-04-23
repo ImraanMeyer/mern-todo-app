@@ -39,7 +39,7 @@ const Signup = ({history}) => {
 		setValues({ ...values, buttonText: 'Submitting' });
 
 		axios
-			.post(`signup`, { name, email, password })
+			.post(`/api/signup`, { name, email, password })
 			.then((response) => {
 				console.log('SIGNUP SUCCESS', response);
 				setValues({ ...values, name: '', email: '', password: '', buttonText: 'Submitted' });

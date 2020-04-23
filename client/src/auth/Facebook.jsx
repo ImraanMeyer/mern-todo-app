@@ -9,7 +9,7 @@ const Facebook = ({ informParent = (f) => f, thisComponent }) => {
 
 		axios({
 			method: 'POST',
-			url: `/facebook-loggin`,
+			url: `/api/facebook-loggin`,
 			data: { userID: response.userID, accessToken:response.accessToken }
 		})
 			.then((response) => {

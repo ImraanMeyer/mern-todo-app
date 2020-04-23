@@ -28,7 +28,7 @@ const Private = ({ history }) => {
 	const loadProfile = () => {
 		axios({
 			method: 'GET',
-			url: `user/${isAuth()._id}`,
+			url: `/api/user/${isAuth()._id}`,
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
@@ -59,7 +59,7 @@ const Private = ({ history }) => {
 
 		axios({
 			method: 'PUT',
-			url: `user/update`,
+			url: `/api/user/update`,
 			data: { name, password },
 			headers: {
 				Authorization: `Bearer ${token}`

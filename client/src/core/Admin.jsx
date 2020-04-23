@@ -27,7 +27,7 @@ const Admin = ({ history }) => {
 	const loadProfile = () => {
 		axios({
 			method: 'GET',
-			url: `user/${isAuth()._id}`,
+			url: `/api/user/${isAuth()._id}`,
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
@@ -58,7 +58,7 @@ const Admin = ({ history }) => {
 
 		axios({
 			method: 'PUT',
-			url: `admin/update`,
+			url: `/api/admin/update`,
 			data: { name, password },
 			headers: {
 				Authorization: `Bearer ${token}`

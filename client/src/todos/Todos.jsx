@@ -27,7 +27,7 @@ const Todos = ({ history }) => {
 	const loadTodos = () => {
 		axios({
 			method: 'GET',
-			url: `todos/${isAuth()._id}`,
+			url: `/api/todos/${isAuth()._id}`,
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
@@ -51,7 +51,7 @@ const Todos = ({ history }) => {
 
 		axios({
 			method: 'POST',
-			url: `todos/new/${isAuth()._id}`,
+			url: `/api/todos/new/${isAuth()._id}`,
 			data: { todo },
 			headers: {
 				Authorization: `Bearer ${token}`

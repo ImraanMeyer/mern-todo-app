@@ -44,10 +44,10 @@ app.use('/api', todosRoutes);
 
 app.use(compression());
 
-app.use('/api', createProxyMiddleware({
-    target: 'http://localhost:8000',
-    changeOrigin: true
-}))
+// app.use('/api', createProxyMiddleware({
+//     target: 'http://localhost:8000',
+//     changeOrigin: true
+// }))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL); // update to match the domain you will make the request from
