@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Array [
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+    rel="stylesheet"
+  />,
+  <ul
+    className="nav nav-tabs bg-dark"
+    style={
+      Object {
+        "fontFamily": "Poppins",
+      }
+    }
+  >
+    <li
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        href="/"
+        onClick={[Function]}
+        style={
+          Object {
+            "color": "#90adff",
+          }
+        }
+      >
+        Home
+      </a>
+    </li>
+    <li
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        href="/signin"
+        onClick={[Function]}
+        style={
+          Object {
+            "color": "#fff",
+          }
+        }
+      >
+        SignIn
+      </a>
+    </li>
+    <li
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        href="/signup"
+        onClick={[Function]}
+        style={
+          Object {
+            "color": "#fff",
+          }
+        }
+      >
+        Signup
+      </a>
+    </li>
+  </ul>,
+  <div
+    className="container"
+    style={
+      Object {
+        "fontFamily": "Poppins",
+      }
+    }
+  >
+    <div
+      className="col-md-6 offset-md-3 text-center"
+    >
+      <h1
+        className="p-5 lead"
+      >
+        React Node MongboDB Authentication Boilerplate
+      </h1>
+      <h1>
+        MERN STACK
+      </h1>
+      <hr />
+      <p>
+        MERN stack login register system with account activation, forgot password, reset password, login with facebook and google as well as private and protected routes for authenticated user and users with the role of admin.
+      </p>
+    </div>
+  </div>,
+]
+`;
