@@ -17,9 +17,6 @@ const userSchema = new Schema({
         unique: true,
         lowercase: true
     },
-    todos: {
-        type: Array
-    },
     hashed_password: {
         type: String,
         required: true,
