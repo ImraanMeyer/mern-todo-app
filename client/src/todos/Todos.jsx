@@ -6,17 +6,20 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 import axios from 'axios';
 import { isAuth, getCookie, signout, updateUser } from '../auth/Helpers';
+import Todo from './Todo';
 
 const Todos = ({ history }) => {
 	// Signup State
 	const [ values, setValues ] = useState({
 		todo: '',
+		editTodoId: '',
 		todos: [],
 		buttonText: 'Add Todo',
-		loading: true
+		loading: true,
+		editSelected: true
 	});
 
-	const { todo, todos, buttonText, loading } = values;
+	const { editTodoId,editSelected, todo, todos, buttonText, loading } = values;
 
 	const token = getCookie('token');
 
@@ -27,15 +30,15 @@ const Todos = ({ history }) => {
 	const loadTodos = () => {
 		axios({
 			method: 'GET',
-			url: `/api/todos/${isAuth()._id}`,
+			url: `/api/todos`,
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
 		})
 			.then((response) => {
 				// console.log('PRIVATE PROFILE UPDATE', response)
-				const todos = response.data;
-				setValues({ ...values, todos, todo: '', loading: false });
+				const todos = response.data.todos;
+				setValues({ ...values, todos, todo: '', loading: false, buttonText: 'Add Todo' });
 			})
 			.catch((error) => {
 				// console.log('LOAD TODOS ERROR', error.response.data.error);
@@ -48,36 +51,84 @@ const Todos = ({ history }) => {
 
 	const addTodo = (e) => {
 		e.preventDefault();
-
 		axios({
 			method: 'POST',
-			url: `/api/todos/new/${isAuth()._id}`,
+			url: `/api/todos/new`,
 			data: { todo },
 			headers: {
 				Authorization: `Bearer ${token}`
 			}
-		}).then((response) => {
-			// console.log('ADD TODO RESPONSE', response);
-			const { todos } = response.data;
-
-			updateUser(response, () => {
-				setValues({ ...values, buttonText: '...', todos });
-				toast.success('Todo succesfully added');
+		})
+			.then((response) => {
+				setValues({ ...values, todo: ' ' });
+				toast.success(response.data.message);
+			})
+			.then(loadTodos())
+			.catch((error) => {
+				toast.error(error.response.data.error);
 			});
-			setValues({ ...values, buttonText: 'Add Todo' });
-			loadTodos();
-		});
 	};
+
+	const deleteTodo = id => {
+		axios({
+			method: 'DELETE',
+			url: `/api/todos/remove/${id}`,
+			data: { todo },
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		})
+			.then(response => {
+				toast.success(response.data.message)
+			})
+			.then(loadTodos())
+			.catch(error => {
+				toast.error(error.response.data.error)
+			})
+	}
+
+	const handleEdit = async (id) => {
+		await axios({
+			method: 'GET',
+			url: `/api/todos/${id}`,
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		}).then(response => {
+			setValues({...values, todo: response.data.todo, editTodoId: response.data._id, buttonText: 'Edit Todo', editSelected: false })
+		})
+	}
+
+	const applyEdit = (e) => {
+		e.preventDefault()
+		axios({
+			method: 'PUT',
+			url: `/api/todos/edit/${editTodoId}`,
+			data: {todo},
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		}).then(response => {
+			toast.success(response.data.message)
+			setValues({...values, editTodoId: ' ', todo: ' ', buttonText: 'Add Todo', editSelected: true })
+		}).then(loadTodos())
+		.catch(error =>{
+			toast.error(error.response.data.error)
+		})
+	}
+
+	console.log(todo)
+
 
 	const todoForm = () => (
 		<form>
 			<div className="form-group">
 				<label className="text-muted">Insert a Todo!</label>
-				<input onChange={handleChange} value={todo} type="text" className="form-control" />
+				<input onChange={handleChange} value={todo} type="text" required className="form-control" />
 			</div>
 
 			<div>
-				<button className="btn btn-dark mb-5 btn-block" onClick={addTodo} >
+				<button className="btn btn-dark mb-5 btn-block" onClick={editSelected ? addTodo : applyEdit}>
 					{buttonText}
 				</button>
 			</div>
@@ -99,7 +150,7 @@ const Todos = ({ history }) => {
 						<p className="lead text-center">Add a todo by completing the form</p>
 					</React.Fragment>
 				) : (
-					todos.map((todo) => <li className="pt-1" key={todo}>{todo}</li>)
+					<ul className="list-group list-group-flush">{todos.map((todoObject) => <Todo todoObject={todoObject} key={todoObject._id} deleteTodo={deleteTodo} handleEdit={handleEdit} />)}</ul>
 				)}
 			</div>
 		</Layout>

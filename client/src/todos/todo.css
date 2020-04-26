@@ -1,0 +1,9 @@
+.todo-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icons > button {
+    margin-left: .2em;
+    margin-right: .2em;
+}
