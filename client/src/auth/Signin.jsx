@@ -83,7 +83,7 @@ const Signin = ({ history }) => {
 				{isAuth() ? <Redirect to="/" /> : null}
 				<h1 className="p-5 text-center">Signin</h1>
 
-				<div className="d-flex p-2 bd-highlight" style={{justifyContent: 'space-between'}}>
+				<div className="p-2 bd-highlight" style={{justifyContent: 'space-between'}}>
 					<Google informParent={informParent} thisComponent={thisComponent} />
 					<Facebook informParent={informParent} thisComponent={thisComponent} />
 				</div>
