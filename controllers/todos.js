@@ -1,58 +1,121 @@
 const User = require('../models/User');
+const Todo = require('../models/Todo');
 
-const getUserTodos = (req, res) => {
-    const userId = req.params.id;
 
-    User.findById(userId).exec((err, user) => {
-        const { todos } = user;
+const getSpecificTodo = (req,res) => {
+    const id = req.params.id;
 
+    Todo.findById(id).exec((err, todo) => {
         if (err) {
             return res.status(401).json({
-                error: 'Failed to fetch todos'
+                'error': 'Failed to fetch the todo'
             })
         }
 
-        return res.status(201).json(todos)
+        return res.status(201).json(todo)
+    })
+}
+
+
+const getUserTodos = (req, res) => {
+    const user = req.user._id;
+
+    Todo.find().exec((err, todos) => {
+        if (err) {
+            return res.status(401).json({
+                'error': 'Failed to fetch todos'
+            })
+        }
+
+        let userTodos = []
+
+        todos.forEach(todo => {
+            if (todo.user == user) {
+                userTodos.push(todo)
+            }
+        })
+
+
+        return res.status(201).json({
+            'todos': userTodos
+        })
     })
 }
 
 const addTodo = (req, res) => {
-    const userId = req.params.id;
     const { todo } = req.body;
+    const user = req.user._id;
 
-    User.findById(userId).exec((err, user) => {
-        const { todos } = user;
+    if (!todo) {
+        return res.status(400).json({
+            'error': 'Please insert a valid todo'
+        })
+    }
+
+    const newTodo = new Todo({ user, todo });
+
+    newTodo.save((err, todo) => {
         if (err) {
-            return res.json(401).json({
+            return res.status(401).json({
                 error: 'Failed to add todo'
             })
         }
 
-        todos.push(todo)
-
-        user.save()
-        return res.status(201).json(user)
-
+        return res.status(201).json({
+            todo,
+            message: 'Todo added sucesfully!'
+        })
     })
 }
 
 const removeTodo = (req, res) => {
-    const { userId, todo } = req.params;
+    const todoId = req.params.id;
 
-    User.findById(userId).exec((err, user) => {
-        const { todos } = user;
+    Todo.findByIdAndDelete(todoId).exec((err, data) => {
+        if (err) {
+            return res.status(401).json({
+                error: 'Sorry, a todo with that ID does not exist'
+            })
+        }
 
-        const Todos = todos.filter(t => t !== todo);
-
-        console.log(Todos)
-
+        return res.status(203).json({
+            'message': 'Todo removed succesfully'
+        })
     })
+}
 
+const editTodo = (req, res) => {
+    const todoId = req.params.id;
+    const { todo } = req.body;
 
+    Todo.findByIdAndUpdate(todoId).exec((err, data) => {
+        if (err || !data) {
+            return res.status(400).json({
+                'error': 'Todo not found'
+            })
+        }
+
+        if (todo) data.todo = todo;
+
+        data.save((err, updatedTodo) => {
+            if (err) {
+                return res.status(400).json({
+                    'error': 'Failed to updated todo'
+                })
+            }
+
+            res.json({
+                updatedTodo,
+                "message": 'Todo updated succesfully'
+            })
+        })
+    })
 }
 
 module.exports = {
     getUserTodos,
     addTodo,
-    removeTodo
+    removeTodo,
+    editTodo,
+    getSpecificTodo
 }
