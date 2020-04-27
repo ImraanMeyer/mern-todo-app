@@ -13,9 +13,9 @@ require('dotenv').config()
 const app = express();
 
 // Use test db in test mode
-if (process.env.NODE_ENV === 'test') {
-    process.env.DATABASE = 'mongodb://localhost:27017/mernauth-test'
-}
+// if (process.env.NODE_ENV === 'test') {
+//     process.env.DATABASE = 'mongodb://localhost:27017/mernauth-test'
+// }
 
 // Connect to db
 mongoose.connect(process.env.DATABASE, {
