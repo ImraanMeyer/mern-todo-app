@@ -24,7 +24,7 @@ mongoose.connect(process.env.DATABASE, {
         useUnifiedTopology: true,
         useCreateIndex: true
     })
-    .then(() => console.log('DB connected ...'))
+    .then(() => console.log('DB connected ...', process.env.DATABASE))
     .catch(err => console.log('DB CONNECTION ERROR', err))
 
 // Import Routes
