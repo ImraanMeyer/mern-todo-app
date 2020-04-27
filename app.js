@@ -12,6 +12,11 @@ require('dotenv').config()
 // Initialize Express
 const app = express();
 
+// Use test db in test mode
+if (process.env.NODE_ENV === 'test') {
+    process.env.DATABASE = 'mongodb://localhost:27017/mernauth-test'
+}
+
 // Connect to db
 mongoose.connect(process.env.DATABASE, {
         useNewUrlParser: true,
@@ -44,10 +49,6 @@ app.use('/api', todosRoutes);
 
 app.use(compression());
 
-// app.use('/api', createProxyMiddleware({
-//     target: 'http://localhost:8000',
-//     changeOrigin: true
-// }))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL); // update to match the domain you will make the request from
@@ -64,6 +65,9 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+
 // Server Port
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`server running @ http://localhost:${PORT}`));
+
+module.exports = app;
