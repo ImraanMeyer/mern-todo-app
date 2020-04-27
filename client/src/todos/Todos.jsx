@@ -36,12 +36,12 @@ const Todos = ({ history }) => {
 			}
 		})
 			.then((response) => {
-				// console.log('PRIVATE PROFILE UPDATE', response)
+				// // console.log('PRIVATE PROFILE UPDATE', response)
 				const todos = response.data.todos;
 				setValues({ ...values, todos, todo: '', loading: false, buttonText: 'Add Todo' });
 			})
 			.catch((error) => {
-				// console.log('LOAD TODOS ERROR', error.response.data.error);
+				// // console.log('LOAD TODOS ERROR', error.response.data.error);
 				if (error.response.status === 401) signout(() => history.push('/'));
 			});
 	};
@@ -63,10 +63,10 @@ const Todos = ({ history }) => {
 				setValues({ ...values, todo: ' ' });
 				toast.success(response.data.message);
 			})
-			.then(loadTodos())
+			.then(loadTodos)
 			.catch((error) => {
 				toast.error(error.response.data.error);
-			});
+			})
 	};
 
 	const deleteTodo = id => {
@@ -81,7 +81,7 @@ const Todos = ({ history }) => {
 			.then(response => {
 				toast.success(response.data.message)
 			})
-			.then(loadTodos())
+			.then(loadTodos)
 			.catch(error => {
 				toast.error(error.response.data.error)
 			})
@@ -97,6 +97,9 @@ const Todos = ({ history }) => {
 		}).then(response => {
 			setValues({...values, todo: response.data.todo, editTodoId: response.data._id, buttonText: 'Edit Todo', editSelected: false })
 		})
+		.catch((error) => {
+			toast.error(error.response.data.error)
+		})
 	}
 
 	const applyEdit = (e) => {
@@ -111,13 +114,13 @@ const Todos = ({ history }) => {
 		}).then(response => {
 			toast.success(response.data.message)
 			setValues({...values, editTodoId: ' ', todo: ' ', buttonText: 'Add Todo', editSelected: true })
-		}).then(loadTodos())
+		}).then(loadTodos)
 		.catch(error =>{
 			toast.error(error.response.data.error)
 		})
 	}
 
-	console.log(todo)
+	// console.log(todo)
 
 
 	const todoForm = () => (

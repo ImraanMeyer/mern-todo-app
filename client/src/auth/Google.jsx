@@ -5,7 +5,7 @@ import GoogleLogin from 'react-google-login';
 const Google = ({ informParent = f => f, thisComponent}) => {
 	const responseGoogle = (response) => {
 		// request to backend
-		console.log(response.tokenId);
+		// // console.log(response.tokenId);
 
 		axios({
 			method: 'POST',
@@ -13,12 +13,12 @@ const Google = ({ informParent = f => f, thisComponent}) => {
 			data: { idToken: response.tokenId }
         })
         .then(response => {
-            console.log('GOOGLE SIGNING SUCCESS', response)
+            // // console.log('GOOGLE SIGNING SUCCESS', response)
             // inform parent component
             informParent(response);
         })
         .catch(error => {
-            console.log('GOOGLE SIGNING ERROR', error.response)
+            // // console.log('GOOGLE SIGNING ERROR', error.response)
             //
         })
 	};

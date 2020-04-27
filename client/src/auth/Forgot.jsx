@@ -27,13 +27,13 @@ const Forgot = ({ history }) => {
 		axios
 			.put(`/api/forgot-password`, { email })
 			.then((response) => {
-				console.log('FORGOT PASSWORD SUCCESS', response);
+				// // console.log('FORGOT PASSWORD SUCCESS', response);
                 toast.success(response.data.message)
                 
                 setValues({...values, buttonText: 'Requested'})
 			})
 			.catch((error) => {
-                console.log('FORGOT PASSWORD ERROR', error.response.data);
+                // // console.log('FORGOT PASSWORD ERROR', error.response.data);
 				toast.error(error.response.data.error);
 				setValues({ ...values, buttonText: 'Request Password Reset Link' });
 			});

@@ -7,3 +7,8 @@
     margin-left: .2em;
     margin-right: .2em;
 }
+
+.action-buttons {
+    display: grid;
+    place-content: center;
+}

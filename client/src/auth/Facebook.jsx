@@ -5,7 +5,7 @@ import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props
 const Facebook = ({ informParent = (f) => f, thisComponent }) => {
 	const responseFacebook = (response) => {
 		// request to backend
-		console.log(response);
+		// // console.log(response);
 
 		axios({
 			method: 'POST',
@@ -13,12 +13,12 @@ const Facebook = ({ informParent = (f) => f, thisComponent }) => {
 			data: { userID: response.userID, accessToken:response.accessToken }
 		})
 			.then((response) => {
-				console.log('FACEBOOK SIGNING SUCCESS', response);
+				// // console.log('FACEBOOK SIGNING SUCCESS', response);
 				// inform parent component
 				informParent(response);
 			})
 			.catch((error) => {
-				console.log('FACEBOOK SIGNING ERROR', error.response);
+				// // console.log('FACEBOOK SIGNING ERROR', error.response);
 			});
 	};
 

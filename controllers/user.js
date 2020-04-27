@@ -18,7 +18,7 @@ const read = (req, res) => {
 }
 
 const update = (req, res) => {
-    // console.log("UPDATE USER - req.user", req.user, "UPDATE DATA", req.body);
+    // // console.log("UPDATE USER - req.user", req.user, "UPDATE DATA", req.body);
 
     const { name, password } = req.body;
 
@@ -47,7 +47,7 @@ const update = (req, res) => {
 
         user.save((err, updatedUser) => {
             if (err) {
-                console.log("USER UPDATE ERROR", err)
+                // console.log("USER UPDATE ERROR", err)
                 return res.status(400).json({
                     error: "User update failed"
                 })

@@ -10,11 +10,11 @@ const Todo = ({ todoObject, deleteTodo, handleEdit }) => {
 			<div className="todo-content">
 				<h4>{todo}</h4>
 				<div className="d-flex icons">
-					<button className="btn btn-primary">
-						<i className="pl-2 far fa-edit" onClick={handleEdit.bind(_id, _id)} />
+					<button className="action-buttons btn btn-primary">
+						<i className="far fa-edit" onClick={handleEdit.bind(_id, _id)} />
 					</button>
-					<button className="btn btn-danger" onClick={deleteTodo.bind(_id,_id)}>
-						<i className="pl-2 far fa-trash-alt" />
+					<button className="action-buttons btn btn-danger" onClick={deleteTodo.bind(_id,_id)}>
+						<i className="far fa-trash-alt" />
 					</button>
 				</div>
 			</div>

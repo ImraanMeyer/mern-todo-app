@@ -38,13 +38,13 @@ const signup = (req, res) => {
         sgMail
             .send(emailData)
             .then(sent => {
-                // console.log('SIGNUP EMAIL SENT', sent)
+                // // console.log('SIGNUP EMAIL SENT', sent)
                 return res.json({
                     message: `Email has been sent to ${email}. Follow the instruction to activate your account`
                 });
             })
             .catch(error => {
-                // console.log('SIGNUP EMAIL SENT ERROR', error)
+                // // console.log('SIGNUP EMAIL SENT ERROR', error)
                 return res.json({
                     message: error.message
                 });
@@ -58,7 +58,7 @@ const accountActivation = (req, res) => {
     if (token) {
         jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, function(error, decoded) {
             if (error) {
-                // console.log('JWT VERIFY IN ACCOUNT ACTIVATION ERROR', error);
+                // // console.log('JWT VERIFY IN ACCOUNT ACTIVATION ERROR', error);
                 return res.status(401).json({
                     error: 'Expired link. Signup again'
                 });
@@ -70,7 +70,7 @@ const accountActivation = (req, res) => {
 
             user.save((error, user) => {
                 if (error) {
-                    // console.log('SAVE USER IN ACCOUNT ACTIVATION ERROR', error);
+                    // // console.log('SAVE USER IN ACCOUNT ACTIVATION ERROR', error);
                     return res.status(401).json({
                         error: 'Error saving user in database. Try signup again'
                     });
@@ -172,7 +172,7 @@ const forgotPassword = (req, res) => {
 
         return user.updateOne({ resetPasswordLink: token }, (err, success) => {
             if (err) {
-                // console.log('RESET PASSWORD LINK ERROR', err)
+                // // console.log('RESET PASSWORD LINK ERROR', err)
                 return res.status(400).json({
                     error: 'Database connection error on user password forgot request'
                 })
@@ -180,13 +180,13 @@ const forgotPassword = (req, res) => {
                 sgMail
                     .send(emailData)
                     .then(sent => {
-                        // console.log('SIGNUP EMAIL SENT', sent)
+                        // // console.log('SIGNUP EMAIL SENT', sent)
                         return res.json({
                             message: `Email has been sent to ${email}. Follow the instructions to reset your password`
                         });
                     })
                     .catch(error => {
-                        // console.log('SIGNUP EMAIL SENT ERROR', error)
+                        // // console.log('SIGNUP EMAIL SENT ERROR', error)
                         return res.json({
                             message: error.message
                         });
@@ -249,7 +249,7 @@ const googleLogin = (req, res) => {
 
     client.verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT_ID })
         .then(response => {
-            console.log('GOOGLE LOGIN RESPONSE', response)
+            // console.log('GOOGLE LOGIN RESPONSE', response)
             const { email_verified, name, email } = response.payload;
 
             if (email_verified) {
@@ -268,7 +268,7 @@ const googleLogin = (req, res) => {
                         user = new User({ name, email, password });
                         user.save((err, data) => {
                             if (err) {
-                                console.log('ERROR GOOGLE LOGIN ON USER SAVE', err)
+                                // console.log('ERROR GOOGLE LOGIN ON USER SAVE', err)
                                 return res.status(400).json({
                                     error: 'User signup failed with google'
                                 })
@@ -293,7 +293,7 @@ const googleLogin = (req, res) => {
 }
 
 const facebookLogin = (req, res) => {
-    console.log('FACEBOOK LOGIN REQ BODY', req.body);
+    // console.log('FACEBOOK LOGIN REQ BODY', req.body);
     const { userID, accessToken } = req.body;
 
     const url = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email&access_token=${accessToken}`;
@@ -303,7 +303,7 @@ const facebookLogin = (req, res) => {
             method: 'GET'
         })
         .then(response => response.json())
-        // .then(response => console.log(response))
+        // .then(response => // console.log(response))
         .then(response => {
             const { email, name } = response;
 
@@ -322,7 +322,7 @@ const facebookLogin = (req, res) => {
                     user = new User({ name, email, password });
                     user.save((err, data) => {
                         if (err) {
-                            console.log('ERROR FACEBOOK LOGIN ON USER SAVE', err)
+                            // console.log('ERROR FACEBOOK LOGIN ON USER SAVE', err)
                             return res.status(400).json({
                                 error: 'User signup failed with facebook'
                             })

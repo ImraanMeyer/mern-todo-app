@@ -36,13 +36,13 @@ const Activate = ({match}) => {
 		axios
 			.post(`/api/account-activation`, { token })
 			.then((response) => {
-				// console.log('ACCOUNT ACTIVATION', response);
+				// // console.log('ACCOUNT ACTIVATION', response);
 
                 setValues({ ...values, show: false });
 				toast.success(response.data.message);
 			})
 			.catch((error) => {
-                // console.log('ACCOUNT ACTIVATION', error.response.data.error);
+                // // console.log('ACCOUNT ACTIVATION', error.response.data.error);
 				toast.error(error.response.data.error);
 			});
 	};

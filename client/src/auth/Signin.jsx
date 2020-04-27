@@ -40,7 +40,7 @@ const Signin = ({ history }) => {
 		axios
 			.post('/api/signin', { email, password })
 			.then((response) => {
-				console.log('SIGNIN SUCCESS', response);
+				// // console.log('SIGNIN SUCCESS', response);
 
 				// save the response (user, token) => localStorage/cookie
 				authenticate(response, () => {
@@ -50,7 +50,7 @@ const Signin = ({ history }) => {
 				});
 			})
 			.catch((error) => {
-				console.log('SIGNIN ERROR', error.response.data);
+				// // console.log('SIGNIN ERROR', error.response.data);
 				setValues({ ...values, buttonText: 'Submit' });
 				toast.error(error.response.data.error);
 			});
