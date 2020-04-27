@@ -10,3 +10,8 @@ branches:
     - master
 env:
   - DATABASE="mongodb://localhost:27017/mernauth-test"
+  - JWT_SECRET=SDFGOEPRGKKRPEGKPOFKG
+  - JWT_ACCOUNT_ACTIVATION=JDDSJSHIFSHDFIHSH
+  - EMAIL_TO=test@test.com
+  - EMAIL_FROM=noreply@test.com
+  - JWT_RESET_PASSWORD=SJDGROJSGOIEJIOJSFR
