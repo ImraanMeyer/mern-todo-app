@@ -36,8 +36,7 @@ const Admin = ({ history }) => {
 				// // console.log('PRIVATE PROFILE UPDATE', response)
 				const { role, name, email } = response.data;
 				setValues({ ...values, role, name, email });
-			})
-			.catch((error) => {
+			})			.catch((error) => {
 				// // console.log('PRIVATE PROFILE UPDATE ERROR', error.response.data.error);
 
 				if (error.response.status === 401) {

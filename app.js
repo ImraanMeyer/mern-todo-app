@@ -24,8 +24,8 @@ mongoose.connect(process.env.DATABASE, {
         useUnifiedTopology: true,
         useCreateIndex: true
     })
-    .then(() => // console.log('DB connected ...'))
-    .catch(err => // console.log('DB CONNECTION ERROR', err))
+    .then(() => console.log('DB connected ...'))
+    .catch(err =>  console.log('DB CONNECTION ERROR', err))
 
 // Import Routes
 const authRoutes = require('./routes/auth');
@@ -68,6 +68,6 @@ if (process.env.NODE_ENV === 'production') {
 
 // Server Port
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => // console.log(`server running @ http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`server running @ http://localhost:${PORT}`));
 
 module.exports = app;
